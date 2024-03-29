@@ -25,23 +25,31 @@ public:
         {
                 return (2 * n) + 1;
         }
-        
+
         int rightchild(int n)
         {
                 return (2 * n) + 2;
         }
-        
+
         int maximum()
         {
                 return arr[0];
         }
-        
+
         int size()
         {
                 return s;
         }
-        
-        void check(int i)
+
+        void array()
+        {
+                for (int i = 0; i < s; i++)
+                {
+                        cout << arr[i] << " ";
+                }
+        }
+
+        void heapifyUp(int i)
         {
                 while (i != 0 && arr[parent(i)] < arr[i])
                 {
@@ -49,7 +57,7 @@ public:
                         i = parent(i);
                 }
         }
-        
+
         void insert(int x)
         {
                 if (s == m)
@@ -59,9 +67,9 @@ public:
                 }
                 int i = s++;
                 arr[i] = x;
-                check(i);
+                heapifyUp(i);
         }
-        
+
         void delet(int x)
         {
                 if (s == 0)
@@ -69,43 +77,44 @@ public:
                         cout << "underflow error";
                         return;
                 }
-                arr[x] = INT_MAX;
-                check(x);
+                arr[x] = arr[s - 1];
+                arr[--s] = 0;
+                heapifyDown(x);
         }
-        
-        void heapify(int i)
+
+        void heapifyDown(int i)
         {
                 int l = leftchild(i);
                 int r = rightchild(i);
                 int large = i;
-                if (l < m && arr[l] > arr[large])
+                if (l < s && arr[l] > arr[large])
                 {
                         large = l;
                 }
-                if (r < m && arr[r] > arr[large])
+                if (r < s && arr[r] > arr[large])
                 {
                         large = r;
                 }
                 if (large != i)
                 {
                         swap(arr[i], arr[large]);
-                        heapify(large);
+                        heapifyDown(large);
                 }
         }
-        
+
         int top()
         {
                 if (s <= 0)
                 {
-                        return INT_MIN;
+                        return NULL;
                 }
                 if (s == 1)
                 {
-                        return arr[0];
+                        return arr[--s];
                 }
                 int temp = arr[0];
                 arr[0] = arr[--s];
-                heapify(0);
+                heapifyDown(0);
                 return temp;
         }
 };
