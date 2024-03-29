@@ -106,7 +106,7 @@ public:
         {
                 if (s <= 0)
                 {
-                        return NULL;
+                        return 0;
                 }
                 if (s == 1)
                 {
@@ -223,7 +223,7 @@ public:
         {
                 if (s <= 0)
                 {
-                        return NULL;
+                        return 0;
                 }
                 if (s == 1)
                 {
